@@ -14,6 +14,8 @@ userRouter.post("/", (req, res) => {
     username: req.body.username,
     password: req.body.password
   };
+
+  // console.log('user post', newUser)
   const validation = Joi.validate(newUser, UserJoiSchema);
   if (validation.error) {
     return res
@@ -22,15 +24,13 @@ userRouter.post("/", (req, res) => {
   }
   User.findOne({
     //Mongoose $or operator
-    $or: [{ email: newuser.email }, { username: newUser.username }]
-  })
+    $or: [{ email: newUser.email }, { username: newUser.username }]
+    })
     .then(user => {
       if (user) {
-        return res
-          .status(HTTP_STATUS_CODES.BAD_REQUEST)
-          .json({
-            error: "Database error: A user with that name already exists"
-          });
+        return res.status(HTTP_STATUS_CODES.BAD_REQUEST).json({
+          error: "Database error: A user with that name already exists"
+        });
       }
       return User.hashPassword(newUser.password);
     })

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 // MONGOOSE SCHEMA //
-const unoteSchema = new mongoose.Schema({
+const noteSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   title: { type: String, required: true },
   content: { type: String, required: true },
