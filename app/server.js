@@ -1,19 +1,28 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-// const passport = require('passport');
+const passport = require('passport');
 
 const { PORT, HTTP_STATUS_CODES, MONGO_URL, TEST_MONGO_URL } = require('./config');
+const { authRouter } = require('./auth/authRouter');
+const { userRouter } = require('./user/userRouter');
+const { localStrategy, jwtStrategy } = require('./auth/authStrategy');
 
 let server;
 const app = express();
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 //middleware
-
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.static('./public'));
+//ROUTER SETUP
+app.use('api/auth', authRouter);
+app.use('api/user', userRouter);
 
+
+//handle unhandled request instead of stopping serer
 app.use('*', function(req, res){
   res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ error: 'Not found' });
 });
