@@ -23,7 +23,7 @@ const localStrategy = new LocalStrategy((username, password, passportVerify) => 
         return Promise.reject({
           reason: 'LoginError',
           message: 'Incorrect username or password'
-        })
+        });
       }
       return passportVerify(null, user);
     }).catch( err => {

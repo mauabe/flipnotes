@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node start.js",
+    "dev": "nodemon start.js",
     "test": "mocha"
   },
   "repository": {
@@ -17,19 +18,21 @@
     "url": "https://github.com/mauabe/flipnotes/issues"
   },
   "homepage": "https://github.com/mauabe/flipnotes#readme",
-  "dependencies": {
-    "bcrypt": "^3.0.5",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.1",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.4",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
     "faker": "^4.1.0",
-    "joi": "^14.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "mocha": "^6.0.2",
-    "mongodb": "^3.1.13",
-    "mongoose": "^5.4.19",
-    "morgan": "^1.9.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "joi": "^13.6.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.12",
+    "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
