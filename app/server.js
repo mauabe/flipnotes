@@ -3,12 +3,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-const {
-  PORT,
-  HTTP_STATUS_CODES,
-  MONGO_URL,
-  TEST_MONGO_URL
-} = require("./config");
+const { PORT, HTTP_STATUS_CODES, MONGO_URL, TEST_MONGO_URL } = require("./config");
 const { authRouter } = require("./auth/authRouter");
 const { userRouter } = require("./user/userRouter");
 const { noteRouter } = require("./note/noteRouter");
