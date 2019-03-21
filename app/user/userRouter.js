@@ -1,12 +1,10 @@
 const express = require("express");
-const Joi = require("joi");
-const { HTTP_STATUS_CODES } = require("../config");
-const { User, UserJoiSchema } = require("./userModel.js");
-
+const Joi = require('joi'); 
+const { HTTP_STATUS_CODES } = require('../config');
+const { User, UserJoiSchema } = require('./userModel.js');
 const userRouter = express.Router();
 
 // CREATE NEW USER
-
 userRouter.post("/", (req, res) => {
   const newUser = {
     name: req.body.name,
@@ -29,7 +27,7 @@ userRouter.post("/", (req, res) => {
     .then(user => {
       if (user) {
         return res.status(HTTP_STATUS_CODES.BAD_REQUEST).json({
-          error: "Database error: A user with that name already exists"
+          error: "Database error: A user with that name or email already exists"
         });
       }
       return User.hashPassword(newUser.password);
@@ -44,10 +42,37 @@ userRouter.post("/", (req, res) => {
         })
         .catch(error => {
           console.error(error);
-          return res
-            .status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR)
+          return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
             .json({ error: error.message });
         });
+    });
+});
+
+//RETRIEVE USERS
+userRouter.get('/', (req, res) =>{
+  User.find()
+    .then(users =>{
+      return res.status(HTTP_STATUS_CODES.OK)
+        .json(users.map(user => user.serilalize())
+      );
+    })
+    .catch(error => {
+      console.error(error);
+      return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json(error);
+    });
+});
+
+//RETRIEVE ONE USER
+userRouter.get('/:userid', (req, res) => {
+  User.findById(req.params.userid)
+    .then(user => {
+      return res.status(HTTP_STATUS_CODES.OK).json(user.serialize());
+    })
+    .catch(error => {
+      console.error(error);
+      return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+        .json(error);
     });
 });
 
