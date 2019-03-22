@@ -62,8 +62,8 @@ describe('Integration tests for: /api/note', function(){
         }
         return Note.insertMany(seedData)
           .catch(err => {
-              console.error(err);
-              throw new Error(err);
+            console.error(err);
+            throw new Error(err);
           });
     });
 });
