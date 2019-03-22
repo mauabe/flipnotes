@@ -18,10 +18,12 @@ noteSchema.methods.serialize = function() {
   } else {
     user = this.user
   }
+
   return {
     id: this._id,
     user: user,
-    title: this.content,
+    title: this.title,
+    content: this.content,
     createDate: this.createDate,
     updateDate: this.updateDate
   }
