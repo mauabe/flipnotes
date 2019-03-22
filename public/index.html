@@ -4,9 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Hellow world from index.html</title>
+  <title>Flipnotes</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <h1>Hello world man!</h1>
+  <h1>Flipnotes</h1>
+  <nav>
+
+  <div class="default-menu" hidden>
+    <h3>Welcome to Flipnotes</h3>
+    <h4>Get your head in the cloud</h4>
+    <h6>Create, view or organize your notes. <a href='/auth/login.html'>Log in</a></h6>
+    </div>
+    <div id="auth-menu" hidden>
+      <h3 id='nav-greeting'>Welcome</h3>
+      <button id='logout-button'>Log out</button>
+      <h4><a hre='/note/create.html'>Create new note</a></h4>
+    </div>
+  </nav>
+<!-- SECTION NOTE LIST -->
+<section id="note0list">
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+<script src="./util/cache.js"></script>
+<script src="./util/render.js"></script>
+<script src="./util/http.js"></script>
+<script src="./index.js"></script>
+
 </body>
 </html>
