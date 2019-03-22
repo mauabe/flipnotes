@@ -3,32 +3,34 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const passport = require('passport')
 
-const { PORT, HTTP_STATUS_CODES, MONGO_URL, TEST_MONGO_URL } = require('./config')
-const { authRouter } = require('./auth/authRouter')
-const { userRouter } = require('./user/userRouter')
-const { noteRouter } = require('./note/noteRouter')
-const { localStrategy, jwtStrategy } = require('./auth/authStrategy')
+const {
+  PORT,
+  HTTP_STATUS_CODES,
+  MONGO_URL,
+  TEST_MONGO_URL
+} = require('./config')
+const { authRouter } = require('./auth/auth.router')
+const { userRouter } = require('./user/user.router')
+const { noteRouter } = require('./note/note.router')
+const { localStrategy, jwtStrategy } = require('./auth/auth.strategy')
 
 let server
 const app = express()
 passport.use(localStrategy)
 passport.use(jwtStrategy)
 
-//middleware
+// MIDDLEWARE
 app.use(morgan('combined'))
 app.use(express.json())
 app.use(express.static('./public'))
 
-//ROUTER SETUP
-app.use('api/auth', authRouter)
-app.use('api/user', userRouter)
-app.use('api/note', noteRouter)
+// ROUTER SETUP
+app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter)
+app.use('/api/note', noteRouter)
 
-//handle unhandled request instead of crashing server
 app.use('*', function(req, res) {
-  res
-    .status(HTTP_STATUS_CODES.NOT_FOUND)
-    .json({ error: 'unhandled request error *: Not found' })
+  res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ error: 'Damn it! Not Found.' })
 })
 
 module.exports = {
@@ -45,6 +47,7 @@ function startServer(testEnv) {
     } else {
       mongoUrl = MONGO_URL
     }
+
     mongoose.connect(mongoUrl, { useNewUrlParser: true }, err => {
       if (err) {
         console.error(err)
@@ -57,7 +60,7 @@ function startServer(testEnv) {
           })
           .on('error', err => {
             mongoose.disconnect()
-            console.error('connection error:', err)
+            console.error(err)
             reject(err)
           })
       }
@@ -66,21 +69,18 @@ function startServer(testEnv) {
 }
 
 function stopServer() {
-  return mongoose
-    .disconnect()
-    .then(
-      () =>
-        new Promise((resolve, reject) => {
-          server.close(err => {
-            if (err) {
-              console.error('sever close error: ', err)
-              return reject(err)
-            } else {
-              console.log('express server stopped')
-              resolve()
-            }
-          })
+  return mongoose.disconnect().then(
+    () =>
+      new Promise((resolve, reject) => {
+        server.close(err => {
+          if (err) {
+            console.error(err)
+            return reject(err)
+          } else {
+            console.log('Express server stopped.')
+            resolve()
+          }
         })
-    )
-    .catch(err => console.error('Stop server error:', err))
+      })
+  )
 }
