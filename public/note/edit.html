@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Details</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="../flipnotes.css">
+</head>
+<body>
+    <a href="/">Back to Home</a>
+    <h1>Editing Note</h1>
+    <form id="note-edit-form">
+        <label for="title-txt">
+            Title:
+            <br><input id="title-txt" type="text" size="50" disabled required> 
+        </label>
+        <br>
+        <label for="content-txt">
+            Content:
+            <br><textarea id="content-txt" form="new-note-form" cols="50" disabled required></textarea> 
+        </label>
+        <br>
+        <input type="submit" value="Save Changes">
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+  <script src="../utils/etc.js"></script>
+  <script src="../util/cache.js"></script>
+  <script src="../util/render.js"></script>
+  <script src="../util/http.js"></script>
+  <script src="./details.js"></script>
+</body>
+</html>
