@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Joi = require('joi')
+const mongoose = require('mongoose');
+const Joi = require('joi');
 
 // MONGOOSE SCHEMA //
 const noteSchema = new mongoose.Schema({
@@ -8,7 +8,7 @@ const noteSchema = new mongoose.Schema({
   content: { type: String, required: true },
   createDate: { type: Date },
   updateDate: { type: Date, default: Date.now }
-})
+});
 
 //Define Mongoose methods
 noteSchema.methods.serialize = function() {
@@ -26,8 +26,8 @@ noteSchema.methods.serialize = function() {
     content: this.content,
     createDate: this.createDate,
     updateDate: this.updateDate
-  }
-}
+  };
+};
 
 //  VALIDATE DATA COLLECTED with JOI
 const NoteJoiSchema = Joi.object().keys({
@@ -39,9 +39,9 @@ const NoteJoiSchema = Joi.object().keys({
     .min(1)
     .required(),
   createDate: Joi.date().timestamp()
-})
+});
 
 //MONGOOSE SCHEMAS AND MODELS
 const Note = mongoose.model('note', noteSchema)
 
-module.exports = { Note, NoteJoiSchema }
+module.exports = { Note, NoteJoiSchema };
