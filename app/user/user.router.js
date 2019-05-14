@@ -1,5 +1,5 @@
 const express = require('express');
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 
 const { HTTP_STATUS_CODES } = require('../config.js');
 const { User, UserJoiSchema } = require('./user.model.js');
