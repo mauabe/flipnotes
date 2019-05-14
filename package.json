@@ -26,10 +26,10 @@
     "nodemon": "^1.18.4"
   },
   "dependencies": {
+    "@hapi/joi": "^15.0.3",
     "bcryptjs": "^2.4.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "joi": "^13.6.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.12",
     "morgan": "^1.9.0",
