@@ -1,43 +1,43 @@
-const express = require('express')
-const morgan = require('morgan')
-const mongoose = require('mongoose')
-const passport = require('passport')
+const express = require('express');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const passport = require('passport');
 
 const {
   PORT,
   HTTP_STATUS_CODES,
   MONGO_URL,
   TEST_MONGO_URL
-} = require('./config')
-const { authRouter } = require('./auth/auth.router')
-const { userRouter } = require('./user/user.router')
-const { noteRouter } = require('./note/note.router')
-const { localStrategy, jwtStrategy } = require('./auth/auth.strategy')
+} = require('./config');
+const { authRouter } = require('./auth/auth.router');
+const { userRouter } = require('./user/user.router');
+const { noteRouter } = require('./note/note.router');
+const { localStrategy, jwtStrategy } = require('./auth/auth.strategy');
 
-let server
-const app = express()
-passport.use(localStrategy)
-passport.use(jwtStrategy)
+let server;
+const app = express();
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 // MIDDLEWARE
-app.use(morgan('combined'))
-app.use(express.json())
-app.use(express.static('./public'))
+app.use(morgan('combined'));
+app.use(express.json());
+app.use(express.static('./public'));
 
 // ROUTER SETUP
-app.use('/api/auth', authRouter)
-app.use('/api/user', userRouter)
-app.use('/api/note', noteRouter)
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use('/api/note', noteRouter);
 
 app.use('*', function(req, res) {
   res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ error: 'Damn it! Not Found.' })
-})
+});
 
 module.exports = {
   app,
   startServer,
   stopServer
-}
+};
 
 function startServer(testEnv) {
   return new Promise((resolve, reject) => {
@@ -64,13 +64,14 @@ function startServer(testEnv) {
             reject(err)
           })
       }
-    })
-  })
-}
+    });
+  });
+};
 
 function stopServer() {
-  return mongoose.disconnect().then(
-    () =>
+  return mongoose
+    .disconnect()
+    .then( () =>
       new Promise((resolve, reject) => {
         server.close(err => {
           if (err) {
@@ -83,4 +84,4 @@ function stopServer() {
         })
       })
   )
-}
+};

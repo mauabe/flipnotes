@@ -1,10 +1,10 @@
-const express = require('express')
-const Joi = require('joi')
+const express = require('express');
+const Joi = require('@hapi/joi');
 
-const { HTTP_STATUS_CODES } = require('../config.js')
-const { User, UserJoiSchema } = require('./user.model.js')
+const { HTTP_STATUS_CODES } = require('../config.js');
+const { User, UserJoiSchema } = require('./user.model.js');
 
-const userRouter = express.Router()
+const userRouter = express.Router();
 
 // CREATE NEW USER
 userRouter.post('/', (request, response) => {
@@ -13,14 +13,14 @@ userRouter.post('/', (request, response) => {
     email: request.body.email,
     username: request.body.username,
     password: request.body.password
-  }
+  };
 
   const validation = Joi.validate(newUser, UserJoiSchema);
   if (validation.error) {
     return response
       .status(HTTP_STATUS_CODES.BAD_REQUEST)
       .json({ error: validation.error })
-  }
+  };
 
   User.findOne({
     $or: [{ email: newUser.email }, { username: newUser.username }]
@@ -62,7 +62,7 @@ userRouter.get('/', (request, response) => {
         .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
         .json(error)
     })
-})
+});
 
 // RETRIEVE ONE USER
 userRouter.get('/:userid', (request, response) => {

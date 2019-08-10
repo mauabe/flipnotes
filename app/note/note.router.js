@@ -1,9 +1,9 @@
-const express = require('express')
-const Joi = require('Joi')
-const noteRouter = express.Router()
-const { HTTP_STATUS_CODES } = require('../config')
-const { jwtPassportMiddleware } = require('../auth/auth.strategy')
-const { Note, NoteJoiSchema } = require('./note.model')
+const express = require('express');
+const Joi = require('@hapi/joi');
+const noteRouter = express.Router();
+const { HTTP_STATUS_CODES } = require('../config');
+const { jwtPassportMiddleware } = require('../auth/auth.strategy');
+const { Note, NoteJoiSchema } = require('./note.model');
 
 // CREATE NEW NOTE
 noteRouter.post('/', jwtPassportMiddleware, (req, res) => {
@@ -12,14 +12,14 @@ noteRouter.post('/', jwtPassportMiddleware, (req, res) => {
     title: req.body.title,
     content: req.body.content,
     createDate: Date.now()
-  }
+  };
 
   const validation = Joi.validate(newNote, NoteJoiSchema)
   if (validation.error) {
     return res
       .status(HTTP_STATUS_CODES.BAD_REQUEST)
       .json({ error: validation.error })
-  }
+  };
 
   // CREATE NEW NOTE
   Note.create(newNote)
@@ -28,8 +28,8 @@ noteRouter.post('/', jwtPassportMiddleware, (req, res) => {
     })
     .catch(error => {
       return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error)
-    })
-})
+    });
+});
 
 // RETRIEVE USER'S NOTES
 noteRouter.get('/', jwtPassportMiddleware, (req, res) => {

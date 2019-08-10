@@ -1,12 +1,12 @@
-const passport = require('passport')
-const { Strategy: LocalStrategy } = require('passport-local')
+const passport = require('passport');
+const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt')
-const { User } = require('../user/user.model')
-const { JWT_SECRET } = require('../config')
+const { User } = require('../user/user.model');
+const { JWT_SECRET } = require('../config');
 
 const localStrategy = new LocalStrategy(
   (username, password, passportVerify) => {
-    let user
+    let user;
     User.findOne({ username: username })
       .then(_user => {
         user = _user
@@ -34,7 +34,7 @@ const localStrategy = new LocalStrategy(
         return passportVerify(err, false)
       })
   }
-)
+);
 
 const jwtStrategy = new JwtStrategy(
   {
@@ -43,18 +43,18 @@ const jwtStrategy = new JwtStrategy(
     algorithms: ['HS256']
   },
   (token, done) => {
-    done(null, token.user)
+    done(null, token.user);
   }
 )
 
 const localPassportMiddleware = passport.authenticate('local', {
   session: false
 })
-const jwtPassportMiddleware = passport.authenticate('jwt', { session: false })
+const jwtPassportMiddleware = passport.authenticate('jwt', { session: false });
 
 module.exports = {
   localStrategy,
   jwtStrategy,
   localPassportMiddleware,
   jwtPassportMiddleware
-}
+};
