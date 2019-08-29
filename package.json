@@ -32,10 +32,12 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.15",
+    "mixin-deep": "^2.0.1",
     "mongoose": "^5.2.12",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "set-value": "^3.0.1"
   }
 }
